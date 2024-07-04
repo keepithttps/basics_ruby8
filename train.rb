@@ -5,7 +5,7 @@ class Train
   extend  Counter::ClassMethods
   attr_reader :count, :route, :wagons, :type
   attr_accessor :number
-  NUMBER_FORMAT = /^[a-я]{3}-[0-9]{5}$/i   # формат по типу "мск-12345"
+  NUMBER_FORMAT = /^[a-яА-Я]{3}-[0-9]{5}$/i   # формат по типу "мск-12345"
   FULL_NUMBER_TRAIN = 10
   
   def self.find(number)
