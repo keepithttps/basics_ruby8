@@ -77,7 +77,6 @@ class Train
     raise "Number can't be nil" if number.nil?
     raise "Number should be at least #{FULL_NUMBER_TRAIN} symbols = #{((number.split('').length) + 1)} " if ((number.split('').length) + 1) != FULL_NUMBER_TRAIN
     raise "Number has invalid format" if number !~ NUMBER_FORMAT
-    true 
   end
 
   private
