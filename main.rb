@@ -7,9 +7,6 @@ require_relative "passenger_wagon"
 require_relative "cargo_wagon"
 require_relative "modules"
 
-NUMBER_FORMAT = /^[a-я]{3}-[0-9]{5}$/i
-TYPE_FORMAT = /^(1|2)$/
-
 @trains   = {}
 @stations = {}
 @routes   = {}
@@ -25,20 +22,20 @@ def create_train
   item = 0
   begin
     number = prompt("Введите номер поезда по типу (мск-12345)")
-    raise  "Number has invalid format" if number !~ NUMBER_FORMAT
     type = prompt("Укажите цифру типа поезда (1 - пассажирский, 2 - грузовой)")
-    raise  "Number has invalid format" if type !~ TYPE_FORMAT
-  rescue StandardError => e
-    item += 1
-    retry if item < 3
-    abort "Превышено количество попыток ввода "
-  ensure
+    
     train = case type
     when "1" then PassengerTrain.new(number)
     when "2" then CargoTrain.new(number)
     end
+    
     @trains[number] = train
     puts "Поезд создан! #{train}"
+  rescue StandardError => e
+    puts e.message
+    item += 1
+    retry if item < 3
+    abort "Превышено количество попыток ввода "
   end
 end
 
@@ -145,7 +142,6 @@ loop do
   case input
   when "1"
     create_train
-    puts @trains
   when "2"
     create_station
     puts @stations
